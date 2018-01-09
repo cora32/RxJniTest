@@ -101,15 +101,15 @@ public class Repo implements IRepo {
         List<String> list = generateData();
         jniCacheData(list.toArray());
 
-        return Observable.just(stringFromJNI2())
+        return Observable.just(stringFromJNICache(55))
                 .observeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     private List<String> generateData() {
         List<String> list = new ArrayList<>(100);
-        for (int i = 0; i < list.size(); i++) {
-            list.add(String.valueOf(i));
+        for (int i = 0; i < 100; i++) {
+            list.add(String.valueOf(i) + " item!");
         }
         return list;
     }
@@ -126,7 +126,7 @@ public class Repo implements IRepo {
 
     public native String stringFromJNI();
 
-    public native String stringFromJNI2();
+    public native String stringFromJNICache(int index);
 
     public native void jniCacheData(Object[] data);
 }
